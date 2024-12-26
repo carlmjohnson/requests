@@ -13,7 +13,7 @@ import (
 	"github.com/carlmjohnson/requests/reqtest"
 )
 
-func TestRecordReplay(t *testing.T) {
+func TestRecorder(t *testing.T) {
 	baseTrans := requests.ReplayString(`HTTP/1.1 200 OK
 
 Test Document 1`)
@@ -21,13 +21,13 @@ Test Document 1`)
 
 	var s1, s2 string
 	err := requests.URL("http://example.com").
-		Transport(reqtest.Record(baseTrans, dir)).
+		Transport(reqtest.Recorder(reqtest.ModeRecord, baseTrans, dir)).
 		ToString(&s1).
 		Fetch(context.Background())
 	be.NilErr(t, err)
 
 	err = requests.URL("http://example.com").
-		Transport(reqtest.Replay(dir)).
+		Transport(reqtest.Recorder(reqtest.ModeReplay, nil, dir)).
 		ToString(&s2).
 		Fetch(context.Background())
 	be.NilErr(t, err)
@@ -48,7 +48,7 @@ func TestCaching(t *testing.T) {
 		}
 		return
 	}
-	trans := reqtest.Caching(onceTrans, dir)
+	trans := reqtest.Recorder(reqtest.ModeCache, onceTrans, dir)
 	var s1, s2 string
 	err := requests.URL("http://example.com").
 		Transport(trans).

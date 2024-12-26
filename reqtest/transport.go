@@ -17,6 +17,8 @@ func ReplayString(rawResponse string) requests.Transport {
 // requests and their responses to text files in basepath.
 // Requests are named according to a hash of their contents.
 // Responses are named according to the request that made them.
+//
+// Deprecated: Use [Recorder].
 func Record(rt http.RoundTripper, basepath string) requests.Transport {
 	return requests.Record(rt, basepath)
 }
@@ -25,6 +27,8 @@ func Record(rt http.RoundTripper, basepath string) requests.Transport {
 // responses from text files in basepath.
 // Responses are looked up according to a hash of the request.
 // Response file names may optionally be prefixed with comments for better human organization.
+//
+// Deprecated: Use [Recorder].
 func Replay(basepath string) requests.Transport {
 	return requests.Replay(basepath)
 }
@@ -33,6 +37,8 @@ func Replay(basepath string) requests.Transport {
 // responses from text files in the fs.FS.
 // Responses are looked up according to a hash of the request.
 // Response file names may optionally be prefixed with comments for better human organization.
+//
+// Deprecated: Use os.CopyFS and [Recorder].
 func ReplayFS(fsys fs.FS) requests.Transport {
 	return requests.ReplayFS(fsys)
 }
@@ -42,6 +48,8 @@ func ReplayFS(fsys fs.FS) requests.Transport {
 // it caches the result of issuing the request with rt in basepath.
 // Requests are named according to a hash of their contents.
 // Responses are named according to the request that made them.
+//
+// Deprecated: Use [Recorder].
 func Caching(rt http.RoundTripper, basepath string) requests.Transport {
 	return requests.Caching(rt, basepath)
 }

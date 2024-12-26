@@ -11,8 +11,7 @@ import (
 )
 
 func init() {
-	http.DefaultClient.Transport = reqtest.Replay("testdata")
-	// http.DefaultClient.Transport = reqtest.Caching(nil, "testdata")
+	http.DefaultClient.Transport = reqtest.Recorder(reqtest.ModeReplay, nil, "testdata")
 }
 
 func ExampleTo() {

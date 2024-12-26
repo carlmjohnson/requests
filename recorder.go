@@ -19,7 +19,7 @@ import (
 // Requests are named according to a hash of their contents.
 // Responses are named according to the request that made them.
 //
-// Deprecated: Use reqtest.Record.
+// Deprecated: Use [reqtest.Recorder].
 func Record(rt http.RoundTripper, basepath string) Transport {
 	if rt == nil {
 		rt = http.DefaultTransport
@@ -59,7 +59,7 @@ func Record(rt http.RoundTripper, basepath string) Transport {
 // responses from text files in basepath.
 // Responses are looked up according to a hash of the request.
 //
-// Deprecated: Use reqtest.Replay.
+// Deprecated: Use [reqtest.Recorder].
 func Replay(basepath string) Transport {
 	return ReplayFS(os.DirFS(basepath))
 }
@@ -71,7 +71,7 @@ var errNotFound = errors.New("response not found")
 // Responses are looked up according to a hash of the request.
 // Response file names may optionally be prefixed with comments for better human organization.
 //
-// Deprecated: Use reqtest.ReplayFS.
+// Deprecated: Use [reqtest.Recorder] and [os.CopyFS].
 func ReplayFS(fsys fs.FS) Transport {
 	return RoundTripFunc(func(req *http.Request) (res *http.Response, err error) {
 		defer func() {
@@ -117,7 +117,7 @@ func buildName(b []byte) (reqname, resname string) {
 // Requests are named according to a hash of their contents.
 // Responses are named according to the request that made them.
 //
-// Deprecated: Use reqtest.Caching.
+// Deprecated: Use [reqtest.Recorder].
 func Caching(rt http.RoundTripper, basepath string) Transport {
 	replay := Replay(basepath).RoundTrip
 	record := Record(rt, basepath).RoundTrip

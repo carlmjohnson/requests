@@ -37,7 +37,7 @@ func GzipConfig(level int, h func(gw *gzip.Writer) error) Config {
 // which sets the Builder's BaseURL to s.URL
 // and the Builder's Client to s.Client().
 //
-// Deprecated: Use reqtest.Server.
+// Deprecated: Use [reqtest.Server].
 func TestServerConfig(s *httptest.Server) Config {
 	return func(rb *Builder) {
 		rb.

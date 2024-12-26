@@ -17,10 +17,11 @@ import (
 	"strings"
 
 	"github.com/carlmjohnson/requests"
+	"github.com/carlmjohnson/requests/reqtest"
 )
 
 func init() {
-	http.DefaultClient.Transport = requests.Replay("testdata")
+	http.DefaultClient.Transport = reqtest.Recorder(reqtest.ModeReplay, nil, "testdata")
 }
 
 func Example() {

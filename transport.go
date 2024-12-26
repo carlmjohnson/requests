@@ -26,7 +26,7 @@ var _ Transport = RoundTripFunc(nil)
 // ReplayString returns an http.RoundTripper that always responds with a
 // request built from rawResponse. It is intended for use in one-off tests.
 //
-// Deprecated: Use reqtest.ReplayString.
+// Deprecated: Use [reqtest.ReplayString].
 func ReplayString(rawResponse string) Transport {
 	return RoundTripFunc(func(req *http.Request) (res *http.Response, err error) {
 		r := bufio.NewReader(strings.NewReader(rawResponse))
